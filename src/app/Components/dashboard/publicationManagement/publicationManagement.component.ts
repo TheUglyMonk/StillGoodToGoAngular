@@ -7,7 +7,7 @@ import { ManagementService } from "../../../Services/management.service";
 @Component({
     selector: 'app-publication-management',
     imports: [CommonModule, FormsModule],
-    templateUrl: './publicationManagement.component.html',
+    templateUrl: '././publicationManagement.component.html',
     styleUrls: ['./publicationManagement.component.css']
 })
 export class publicationManagementComponent{
