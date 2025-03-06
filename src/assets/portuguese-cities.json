@@ -1,0 +1,23 @@
+[
+  { "name": "Aveiro", "center": { "lat": 40.640506, "lng": -8.653784 } },
+  { "name": "Beja", "center": { "lat": 38.015, "lng": -7.860 } },
+  { "name": "Braga", "center": { "lat": 41.545448, "lng": -8.426505 } },
+  { "name": "Castelo Branco", "center": { "lat": 39.822, "lng": -7.490 } },
+  { "name": "Coimbra", "center": { "lat": 40.203314, "lng": -8.410257 } },
+  { "name": "Covilhã", "center": { "lat": 40.278, "lng": -7.496 } },
+  { "name": "Évora", "center": { "lat": 38.566667, "lng": -7.900000 } },
+  { "name": "Faro", "center": { "lat": 37.017, "lng": -7.930 } },
+  { "name": "Guimarães", "center": { "lat": 41.444, "lng": -8.292 } },
+  { "name": "Leiria", "center": { "lat": 39.744, "lng": -8.807 } },
+  { "name": "Lisboa", "center": { "lat": 38.736946, "lng": -9.142685 } },
+  { "name": "Porto", "center": { "lat": 41.157944, "lng": -8.629105 } },
+  { "name": "Portalegre", "center": { "lat": 39.299, "lng": -7.430 } },
+  { "name": "Santarém", "center": { "lat": 39.233, "lng": -8.685 } },
+  { "name": "Setúbal", "center": { "lat": 38.524368, "lng": -8.888173 } },
+  { "name": "Viana do Castelo", "center": { "lat": 41.693, "lng": -8.832 } },
+  { "name": "Vila Real", "center": { "lat": 41.300, "lng": -7.744 } },
+  { "name": "Viseu", "center": { "lat": 40.661, "lng": -7.909 } },
+  { "name": "Madeira", "center": { "lat": 32.7607, "lng": -16.9595 } },
+  { "name": "Açores", "center": { "lat": 37.7412, "lng": -25.6756 } }
+]
+

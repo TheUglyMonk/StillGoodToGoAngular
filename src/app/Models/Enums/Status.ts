@@ -1,5 +1,5 @@
 enum Status{
-    available,
-    sold,
-    unavailable
+    Available,
+    Sold,
+    Unavailable
 }
