@@ -1,4 +1,6 @@
-interface Publication {
+import { Status } from "./Enums/Status";
+
+export interface Publication {
     id: number;
     establishmentId: number;
     description: string;
@@ -7,5 +9,3 @@ interface Publication {
     endDate: Date;
     status: Status;
 }
-
-

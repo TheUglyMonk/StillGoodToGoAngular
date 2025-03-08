@@ -1,3 +1,7 @@
+import { Category } from "./Enums/Category";
+import { Role } from "./Enums/Role";
+import { Status } from "./Enums/Status";
+
 export interface Establishment{
     id: number;
     username:string;
