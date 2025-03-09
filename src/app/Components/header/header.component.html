@@ -1,37 +1,28 @@
-<div class="text-TextColor lg:px-72 px-8">
-    <div class="flex items-center justify-between px-6 pt-10 pb-4">
-      <div class="flex-1 flex justify-center">
-        <a routerLink="/">
-          <img src="../../../assets/Logo.png" width="100px" alt="Logo">
-        </a>
-      </div>
-        <div class="relative" *ngIf="isUserLoggedIn">
-        <img src="../../../assets/Component 1.svg" class="cursor-pointer" width="40px" alt="Profile Icon" (click)="toggleDropdown()">
-          <div *ngIf="showDropdown" class="absolute top-12 right-0 bg-white shadow-lg rounded-lg p-4 w-48">
-          <p class="text-black font-bold">Olá, {{ userInfo?.name || 'User' }}!</p>
-          <p class="text-black">Tipo: {{ userInfo?.role || 'Guest' }}</p>
-          <button (click)="logout()" class="mt-2 bg-OrangeButton text-white px-4 py-2 rounded">
-            Sair
-          </button>
-        </div>
-      </div>
-    </div>
-  
-    <!-- About Us Section -->
-    <div *ngIf="isHomePage" class="flex w-full">
-      <div class="flex flex-col gap-5 pt-8">
-        <h2 class="text-2xl font-extrabold">Sobre nós</h2>
-        <p class="text-justify">
-          Centralizamos dados de todas as fontes portuguesas sobre radão e avaliamos a potabilidade da água.
-          Ajudamos a população a tomar decisões informadas com transparência e precisão.
-        </p>
-  
-        <!-- Hide button if logged in -->
-        <button *ngIf="!isUserLoggedIn" routerLink="/sign-in"
-          class="bg-OrangeButton text-white font-extrabold  rounded-md text-center w-[30%] py-2">
-          Iniciar Sessão
-        </button>
-      </div>
+<div class="flex justify-between items-center py-4 bg-white shadow-sm rounded-lg sticky top-0 z-50 px-36">
+  <div class="w-10 h-10 flex justify-center items-center mx-4 cursor-pointer">
+    <a routerLink="/favorites">
+      <img src="../../../assets/UserFavs.svg" alt="Favorites"> <!--Heart icon that leads to /favorites-->
+    </a>
+  </div>
+
+  <div class="flex justify-center items-center flex-grow">
+    <a routerLink="">
+
+      <img width="80px" src="../../../assets/Logo.png" alt="Still Good To Go Logo" class="max-w-xs sm:max-w-md">
+      <!--Still Good To Go Logo-->
+    </a>
+  </div>
+
+  <!-- User Icon with Dropdown -->
+  <div class="relative w-10 h-10 flex justify-center items-center mx-4">
+    <img src="../../../assets/UserProfile.svg" alt="User Profile" class="cursor-pointer" (click)="toggleDropdown()">
+
+    <!-- Dropdown Menu -->
+    <div *ngIf="dropdownVisible" class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg top-10">
+      <ul class="list-none p-2">
+        <li class="px-4 py-2 hover:bg-green-100 cursor-pointer" routerLink="/profile">See Profile</li>
+        <li class="px-4 py-2 hover:bg-green-100 cursor-pointer">Logout</li>
+      </ul>
     </div>
   </div>
-  
+</div>

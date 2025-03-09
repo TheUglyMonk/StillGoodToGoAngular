@@ -1,34 +1,21 @@
-<div class="relative bg-white p-6 rounded-2xl shadow-md mb-8">
-    <ngb-carousel *ngIf="recommendations.length > 0; else noRecommendations" 
-          [interval]="5000" 
-          [wrap]="true" 
-          [keyboard]="true" 
-          class="overflow-hidden rounded-xl shadow-md">
-  
-      <!-- Carousel slides -->
-      <ng-template ngbSlide *ngFor="let establishment of recommendations">
-          <div class="flex flex-col justify-center items-center bg-white bg-opacity-90 backdrop-blur-md p-6 rounded-xl shadow-md transition-transform transform hover:scale-105 h-full">
-              <h3 class="text-lg font-semibold text-green-800 mb-2 text-center">🍽️ {{ establishment.username }}</h3>
-              <p class="text-sm text-gray-600 italic mb-3 text-center">{{ establishment.description }}</p>
-              <span class="text-sm text-green-700 font-medium text-center">⭐ Classificação: {{ establishment.classification }}</span>
-          </div>
-      </ng-template>
-  
+<div class="relative bg-white shadow-lg  p-6 rounded-2xl  mb-8">
+    <ngb-carousel *ngIf="recommendations.length > 0; else noRecommendations" [interval]="3000" [wrap]="true"
+        [keyboard]="true" class="overflow-hidden rounded-xl text-green-950">
+
+        <!-- Carousel slides -->
+        <ng-template ngbSlide *ngFor="let establishment of recommendations">
+            <div
+                class="flex flex-col justify-center py-10 items-center  bg-opacity-90 backdrop-blur-md  rounded-xl shadow-md transition-transform transform hover:scale-105 h-full">
+                <h3 class="text-lg font-semibold text-green-800 mb-2 text-center">🍽️ {{ establishment.username }}</h3>
+                <p class="text-sm text-gray-600 italic mb-3 text-center">{{ establishment.description }}</p>
+                <span class="text-sm text-green-700 font-medium text-center">⭐ Classificação: {{
+                    establishment.classification }}</span>
+            </div>
+        </ng-template>
     </ngb-carousel>
-  
-    <!-- Left and Right Arrows (positioned inside the carousel container) -->
-    <button class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-green-600 text-white p-3 rounded-full shadow-md hover:bg-green-700 transition-all cursor-pointer" 
-            aria-label="Previous">
-      &#10094;
-    </button>
-    <button class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-green-600 text-white p-3 rounded-full shadow-md hover:bg-green-700 transition-all cursor-pointer" 
-            aria-label="Next">
-      &#10095;
-    </button>
-  
+
     <!-- No Recommendations Message -->
     <ng-template #noRecommendations>
-      <p class="text-center text-gray-700 mt-4">🚫 Nenhuma recomendação disponível no momento.</p>
+        <p class="text-center text-gray-700 mt-4">🚫 Nenhuma recomendação disponível no momento.</p>
     </ng-template>
-  </div>
-  
+</div>
