@@ -1,1 +1,31 @@
-<p>manager works!</p>
+<div class="flex h-screen">
+    <!-- Sidebar Menu -->
+    <nav class="w-64 bg-white shadow-md border-r border-gray-200 p-6">
+        <h2 class="text-xl font-semibold text-green-800 mb-6">Manager Dashboard</h2>
+        <ul class="space-y-4">
+            <li>
+                <button (click)="setSection('faqs')" class="w-full text-left p-3 rounded-lg hover:bg-green-600 hover:text-white transition">
+                    FAQ Management
+                </button>
+            </li>
+            <li>
+                <button (click)="setSection('establishments')" class="w-full text-left p-3 rounded-lg hover:bg-green-600 hover:text-white transition">
+                    Establishment Management
+                </button>
+            </li>
+            <li>
+                <button (click)="setSection('sales')" class="w-full text-left p-3 rounded-lg hover:bg-green-600 hover:text-white transition">
+                    Sales Management
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 p-6">
+        <p *ngIf="!selectedSection" class="text-gray-700">Select an option from the menu to manage your content.</p>
+        <app-faqs-management *ngIf="selectedSection === 'faqs'"></app-faqs-management>
+        <app-establishment-management *ngIf="selectedSection === 'establishments'"></app-establishment-management>
+        <app-sale-management *ngIf="selectedSection === 'sales'"></app-sale-management>
+    </div>
+</div>

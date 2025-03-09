@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserInfo } from '../Models/UserInfo';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ClientService {
+export class ClientService { 
   private apiUrl = `${environment.apiBaseUrl}/client`;
-  private clientId = 1; // Temporary client ID until login/cache is implemented
+  private clientId = 1;
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +24,14 @@ export class ClientService {
     );
   }
 
-    getUserInfo(): Observable<UserInfo> {
-      return this.http.get<UserInfo>(`${this.apiUrl}/${this.clientId}`);
-    }
+  getUserInfo(): Observable<UserInfo> {
+    return this.http.get<UserInfo>(`${this.apiUrl}/${this.clientId}`);
+  }
+
+  updateUserInfo(user: any): Observable<any> {
+    console.log('Calling updateUserInfo API with:', user);
+    return this.http.put(`${this.apiUrl}/${this.clientId}`, user).pipe(
+      tap(response => console.log('updateUserInfo API response:', response))
+    );
+  }
 }
