@@ -10,5 +10,4 @@ export const routes: Routes = [
     {path:"manager", component: BodyComponent},
     {path:"establishment", component: BodyComponent},
     {path:"profile", component: BodyComponent},
-    
 ];

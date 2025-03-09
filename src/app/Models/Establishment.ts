@@ -2,15 +2,17 @@ import { Category } from "./Enums/Category";
 import { Role } from "./Enums/Role";
 import { Status } from "./Enums/Status";
 
-export interface Establishment{
+export interface Establishment {
     id: number;
-    username:string;
-    password:string;
-    role: Role;
+    role: number;
+    username: string;
+    publication: any | null;
+    email: string;
+    password: string | null;
     description: string;
-    categories: Category[];
-    latitude : number;
-    longitude : number;
+    latitude: number;
+    longitude: number;
     classification: number;
-    status: Status;
-}
+    categories: number[];
+    active: boolean;
+  }

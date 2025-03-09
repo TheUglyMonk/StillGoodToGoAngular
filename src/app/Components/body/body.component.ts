@@ -9,11 +9,13 @@ import { City } from '../../Models/City';
 import { LatLng } from '../../Models/LatLng';
 import { CommonModule } from '@angular/common';
 import { FaqsComponent } from './faqs/faqs.component';
+import { EstablishmentRecomendationsComponent } from './establishment-recomendations/establishment-recomendations.component';
+import { LastPublicationsComponent } from './last-publications/last-publications.component';
 
 @Component({
   selector: 'app-body',
   standalone: true,
-  imports: [MapComponent, HttpClientModule,CommonModule, FaqsComponent],
+  imports: [MapComponent, HttpClientModule,CommonModule, FaqsComponent,EstablishmentRecomendationsComponent, LastPublicationsComponent],
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.css'] 
 })

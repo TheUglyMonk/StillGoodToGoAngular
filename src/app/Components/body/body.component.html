@@ -1,11 +1,19 @@
 <div class="bg-gradient-to-b from-green-50 to-white p-6 max-w-5xl mx-auto my-8 rounded-2xl shadow-lg">
+  <!-- Establishment Recommendations -->
+  <div class="mb-8">
+    <app-establishment-recommendations></app-establishment-recommendations>
+  </div>
+
+  <div class="mb-8">
+    <app-last-publications></app-last-publications>
+  </div>
   
-  <!-- Header -->
+  <!-- Header Section -->
   <h2 class="text-3xl font-extrabold text-green-800 mb-6 text-center">
     🌱 Estabelecimentos em Portugal 🍽️
   </h2>
 
-  <!-- Controls -->
+  <!-- Controls for City Selection and Near Me Button -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4">
     <select class="border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow"
             (change)="onCitySelect($event)">
@@ -25,7 +33,7 @@
     <app-map [markers]="filteredLocations"></app-map>
   </div>
 
-  <!-- Decorative Separator (Instead of Plain Divider) -->
+  <!-- Decorative Separator -->
   <div class="flex justify-center my-10">
     <div class="w-20 h-2 bg-green-500 rounded-full"></div>
   </div>
@@ -34,5 +42,4 @@
   <div class="mt-8 bg-green-100 p-6 rounded-2xl shadow-md">
     <app-faq-list></app-faq-list>
   </div>
-
 </div>
