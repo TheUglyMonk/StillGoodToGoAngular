@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { UserInfo } from '../Models/UserInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -22,4 +23,8 @@ export class ClientService {
       {}
     );
   }
+
+    getUserInfo(): Observable<UserInfo> {
+      return this.http.get<UserInfo>(`${this.apiUrl}/${this.clientId}`);
+    }
 }

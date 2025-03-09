@@ -15,4 +15,8 @@ export class EstablishmentService {
   getEstablishments(): Observable<Establishment[]> {
     return this.http.get<Establishment[]>(`${environment.apiBaseUrl}${this.apiUrl}`);
   }
+
+  getEstablishmentInfo(establishmentId: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiBaseUrl}/establishment/${establishmentId}`);
+  }
 }

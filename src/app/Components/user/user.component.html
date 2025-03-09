@@ -1,1 +1,43 @@
-<p>user works!</p>
+<div class="max-w-4xl mx-auto p-6">
+    <h2 class="text-2xl font-bold text-green-800 mb-4">👤 Perfil do Usuário</h2>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center text-gray-600">Carregando...</div>
+  
+    <!-- User Info -->
+    <div *ngIf="!loading && userInfo" class="space-y-4">
+      <div class="p-4 bg-white shadow-md rounded-lg">
+        <h3 class="text-lg font-semibold text-green-700">Username: {{ userInfo!.username }}</h3>
+        <p class="text-gray-600">Email: {{ userInfo!.email }}</p>
+  
+        <!-- Conditional Role Display -->
+        <p class="text-gray-600">
+          Role: 
+          <span *ngIf="userInfo!.role === 0" class="text-blue-600">Admin</span>
+          <span *ngIf="userInfo!.role === 1" class="text-green-600">Client</span>
+          <span *ngIf="userInfo!.role === 2" class="text-purple-600">Establishment</span>
+        </p>
+  
+        <p class="text-gray-600">NIF: {{ userInfo!.nif }}</p>
+      </div>
+    </div>
+  
+    <!-- Latest Sales/Orders Section -->
+    <div *ngIf="!loading && sales.length > 0" class="mt-8">
+      <h3 class="text-xl font-semibold text-green-800 mb-4">🛍️ Últimas Compras/Vendas</h3>
+      <div *ngFor="let sale of sales" class="p-4 bg-white shadow-md rounded-lg flex items-center justify-between border border-gray-200 mb-4">
+        <div class="flex flex-col">
+          <p class="text-gray-600">Price: {{ sale.price }}</p>
+          <p class="text-gray-600">Date: {{ sale.date[2] }}/{{ sale.date[1] }}/{{ sale.date[0] }}</p>
+          <p class="text-gray-600">Establishment: {{ sale.establishmentName }}</p>
+          
+        </div>
+      </div>
+    </div>
+  
+    <!-- No Sales -->
+    <div *ngIf="!loading && sales.length === 0" class="text-center text-gray-600">
+      🚫 Você não tem compras ou vendas registradas.
+    </div>
+  </div>
+  
