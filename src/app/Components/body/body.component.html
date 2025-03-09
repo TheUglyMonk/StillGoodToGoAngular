@@ -1,19 +1,38 @@
-<div class="bg-white shadow rounded-lg p-4">
-    <h2 class="text-xl font-bold mb-3">Estabelecimentos em Portugal:</h2>
-    <div class="flex justify-between gap-3">
-      <select class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-900"
-        (change)="onCitySelect($event)">
-        <option value="todos" selected>Todos</option>
-        <option *ngFor="let city of cities" [value]="city.name">
-          {{ city.name }}
-        </option>
-      </select>
-      <button class="bg-gray-400 text-white py-2 px-3 rounded hover:bg-green-500" (click)="zoomNearMe()">
-        Perto de mim
-      </button>
-    </div>
-    <div class="mt-4">
-      <app-map [markers]="filteredLocations"></app-map>
-    </div>
-  </div>
+<div class="bg-gradient-to-b from-green-50 to-white p-6 max-w-5xl mx-auto my-8 rounded-2xl shadow-lg">
   
+  <!-- Header -->
+  <h2 class="text-3xl font-extrabold text-green-800 mb-6 text-center">
+    🌱 Estabelecimentos em Portugal 🍽️
+  </h2>
+
+  <!-- Controls -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4">
+    <select class="border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow"
+            (change)="onCitySelect($event)">
+      <option value="todos" selected>🌍 Todos</option>
+      <option *ngFor="let city of cities" [value]="city.name">
+        🍏 {{ city.name }}
+      </option>
+    </select>
+    <button class="bg-green-600 text-white font-semibold rounded-full px-5 py-2 shadow-md hover:bg-green-700 transition-all"
+            (click)="zoomNearMe()">
+      📍 Perto de mim
+    </button>
+  </div>
+
+  <!-- Map Section -->
+  <div class="mt-6 overflow-hidden rounded-2xl shadow-md">
+    <app-map [markers]="filteredLocations"></app-map>
+  </div>
+
+  <!-- Decorative Separator (Instead of Plain Divider) -->
+  <div class="flex justify-center my-10">
+    <div class="w-20 h-2 bg-green-500 rounded-full"></div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="mt-8 bg-green-100 p-6 rounded-2xl shadow-md">
+    <app-faq-list></app-faq-list>
+  </div>
+
+</div>

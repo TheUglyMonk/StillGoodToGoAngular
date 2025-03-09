@@ -1,0 +1,32 @@
+<div class="bg-gradient-to-b from-green-50 to-beige-50 p-8 rounded-2xl shadow-lg">
+    <!-- About Section -->
+    <div class="mb-8 text-center">
+        <h2 class="text-2xl font-bold text-green-800 mb-3">Sobre a Still Good To Go</h2>
+        <p class="text-lg font-medium text-green-900 leading-relaxed">
+            A Still Good To Go é uma empresa de impacto social que tem como missão o combate ao desperdício alimentar.
+            A nossa app é a principal app do mundo para salvar excedente alimentar. Conectamos utilizadores a
+            estabelecimentos para que estes possam salvar alimentos que acabaram por não ser vendidos.
+        </p>
+    </div>
+
+    <!-- FAQs Section -->
+    <div class="mb-4 text-xl font-semibold text-green-900">Perguntas Frequentes</div>
+
+    <div class="accordion space-y-5">
+        <ng-container *ngFor="let faq of faqs">
+            <details class="group bg-white rounded-xl shadow-md overflow-hidden">
+                <summary
+                    class="cursor-pointer p-5 font-semibold text-green-900 hover:bg-green-100 flex justify-between items-center transition-all rounded-lg">
+                    <span>{{ faq.question }}</span>
+                    <svg class="w-6 h-6 text-green-600 group-open:rotate-180 transition-transform duration-300"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </summary>
+                <div class="p-5 text-green-800 bg-green-50 border-t border-green-200">
+                    {{ faq.answer }}
+                </div>
+            </details>
+        </ng-container>
+    </div>
+</div>

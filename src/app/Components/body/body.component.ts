@@ -8,11 +8,12 @@ import { Subscription, take } from 'rxjs';
 import { City } from '../../Models/City';
 import { LatLng } from '../../Models/LatLng';
 import { CommonModule } from '@angular/common';
+import { FaqsComponent } from './faqs/faqs.component';
 
 @Component({
   selector: 'app-body',
   standalone: true,
-  imports: [MapComponent, HttpClientModule,CommonModule],
+  imports: [MapComponent, HttpClientModule,CommonModule, FaqsComponent],
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.css'] 
 })
