@@ -11,11 +11,13 @@ import { CommonModule } from '@angular/common';
 import { FaqsComponent } from './faqs/faqs.component';
 import { EstablishmentRecomendationsComponent } from './establishment-recomendations/establishment-recomendations.component';
 import { LastPublicationsComponent } from './last-publications/last-publications.component';
+import { LoginRegisterComponent } from './login-register/login-register.component';
+import { RegisterEstablishmentComponent } from '../auth/register-establishment/register-establishment.component';
 
 @Component({
   selector: 'app-body',
   standalone: true,
-  imports: [MapComponent, HttpClientModule,CommonModule, FaqsComponent,EstablishmentRecomendationsComponent, LastPublicationsComponent],
+  imports: [MapComponent, HttpClientModule,CommonModule, FaqsComponent,EstablishmentRecomendationsComponent,RegisterEstablishmentComponent, LastPublicationsComponent, LoginRegisterComponent],
   templateUrl: './body.component.html',
   styleUrls: ['./body.component.css'] 
 })
