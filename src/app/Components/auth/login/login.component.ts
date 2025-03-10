@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../../Services/auth.service';
-import { FormsModule, NgModel } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Route, Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,9 @@ import { Route, Router, RouterLink } from '@angular/router';
 export class LoginComponent {
   email = '';
   password = '';
+  isLoggedIn = false;  // Track the login state
 
-  constructor(private authService: AuthService , private router:Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   login() {
     this.authService.login(this.email, this.password).subscribe({
@@ -25,8 +26,20 @@ export class LoginComponent {
         // Store the full response in localStorage
         localStorage.setItem('user', JSON.stringify(response));
 
-        // Redirect to home page
-        this.router.navigate(['/']);
+        // Redirect based on role
+        if (response.role === 1) {
+          this.router.navigate(['/']).then(() => {
+            window.location.reload(); // Force a reload after navigation
+          });
+        } else if (response.role === 0) {
+          this.router.navigate(['/manager']).then(() => {
+            window.location.reload(); // Force a reload after navigation
+          });
+        } else if (response.role === 2) {
+          this.router.navigate(['/establishment']).then(() => {
+            window.location.reload(); // Force a reload after navigation
+          });
+        }
       },
       error: (error) => {
         console.error('Login Failed:', error);
@@ -34,5 +47,4 @@ export class LoginComponent {
       }
     });
   }
-
 }

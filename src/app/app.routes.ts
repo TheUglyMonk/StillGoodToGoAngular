@@ -16,4 +16,5 @@ export const routes: Routes = [
     {path:"establishment", component: BodyComponent},
     {path:"profile", component: UserComponent},
     {path:"register-establishment", component: RegisterEstablishmentComponent},
+    { path: ":id", component: BodyComponent },  // Dynamic ID route
 ];

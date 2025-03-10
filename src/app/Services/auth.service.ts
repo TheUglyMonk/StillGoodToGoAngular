@@ -10,6 +10,10 @@ export class AuthService {
   private apiUrl = `${environment.apiBaseUrl}/user/login`;
 
   constructor(private http: HttpClient) {}
+  
+  isLoggedIn(): boolean {
+    return localStorage.getItem('user') !== null;
+  }
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(this.apiUrl, { email, password });

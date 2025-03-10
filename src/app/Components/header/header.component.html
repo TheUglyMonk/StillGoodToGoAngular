@@ -1,27 +1,28 @@
 <div class="flex justify-between items-center py-4 bg-white shadow-sm rounded-lg sticky top-0 z-50 px-36">
-  <div class="w-10 h-10 flex justify-center items-center mx-4 cursor-pointer">
+  <!-- Favorites Icon (only visible if logged in) -->
+  <div *ngIf="isLoggedIn" class="w-10 h-10 flex justify-center items-center mx-4 cursor-pointer">
     <a routerLink="/favorites">
       <img src="../../../assets/UserFavs.svg" alt="Favorites"> <!--Heart icon that leads to /favorites-->
     </a>
   </div>
 
+  <!-- Logo -->
   <div class="flex justify-center items-center flex-grow">
     <a routerLink="">
-
       <img width="80px" src="../../../assets/Logo.png" alt="Still Good To Go Logo" class="max-w-xs sm:max-w-md">
       <!--Still Good To Go Logo-->
     </a>
   </div>
 
-  <!-- User Icon with Dropdown -->
-  <div class="relative w-10 h-10 flex justify-center items-center mx-4">
+  <!-- User Icon with Dropdown (only visible if logged in) -->
+  <div *ngIf="isLoggedIn" class="relative w-10 h-10 flex justify-center items-center mx-4">
     <img src="../../../assets/UserProfile.svg" alt="User Profile" class="cursor-pointer" (click)="toggleDropdown()">
 
     <!-- Dropdown Menu -->
     <div *ngIf="dropdownVisible" class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg top-10">
       <ul class="list-none p-2">
         <li class="px-4 py-2 hover:bg-green-100 cursor-pointer" routerLink="/profile">Perfil</li>
-        <li class="px-4 py-2 hover:bg-green-100 cursor-pointer">Logout</li>
+        <li class="px-4 py-2 hover:bg-green-100 cursor-pointer" (click)="logout()">Logout</li>
       </ul>
     </div>
   </div>

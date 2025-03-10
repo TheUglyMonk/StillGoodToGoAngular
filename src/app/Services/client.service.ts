@@ -24,6 +24,11 @@ export class ClientService {
     );
   }
 
+  // Method to create a new client
+  createClient(clientData: { username: string; email: string; password: string; nif: number }): Observable<any> {
+    return this.http.post<any>(this.apiUrl, clientData);
+  }
+  
   getUserInfo(): Observable<UserInfo> {
     return this.http.get<UserInfo>(`${this.apiUrl}/${this.clientId}`);
   }

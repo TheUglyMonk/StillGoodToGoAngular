@@ -24,7 +24,7 @@ import { RegisterEstablishmentComponent } from '../auth/register-establishment/r
 
 export class BodyComponent implements OnInit, OnDestroy {
   @ViewChild(MapComponent) mapComponent!: MapComponent;
-
+  isLoggedIn = false;
   establishments: Establishment[] = [];
   filteredLocations: LatLng[] = [];
   cities: City[] = [];
@@ -40,6 +40,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.isLoggedIn = !!localStorage.getItem("user");
     this.http.get<City[]>('assets/portuguese-cities.json').subscribe(
       data => { this.cities = data; },
       error => { console.error('Erro ao carregar cidades:', error); }
