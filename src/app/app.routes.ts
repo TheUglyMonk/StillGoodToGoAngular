@@ -6,6 +6,7 @@ import { ManagerComponent } from './Components/manager/manager.component';
 import { SignUpComponent } from './Components/auth/sign-up/sign-up.component';
 import { LoginComponent } from './Components/auth/login/login.component';
 import { RegisterEstablishmentComponent } from './Components/auth/register-establishment/register-establishment.component';
+import { ShopComponent } from './Components/shop/shop.component';
 
 export const routes: Routes = [
     {path:"", component: BodyComponent},
@@ -16,5 +17,5 @@ export const routes: Routes = [
     {path:"establishment", component: BodyComponent},
     {path:"profile", component: UserComponent},
     {path:"register-establishment", component: RegisterEstablishmentComponent},
-    { path: ":id", component: BodyComponent },  // Dynamic ID route
+    {path: ":id", component: ShopComponent },  
 ];
