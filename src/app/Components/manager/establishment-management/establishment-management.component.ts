@@ -54,10 +54,11 @@ export class EstablishmentManagementComponent implements OnInit {
   }
 
   private updateRequisition(requisition: Requisition): void {
-    this.requisitionService.updateRequisition(requisition).subscribe({
+    const { id, ...requisitionWithoutId } = requisition;
+  
+    this.requisitionService.updateRequisition(requisition.id, requisitionWithoutId).subscribe({
       next: (updated) => {
         console.log('Requisição atualizada com sucesso:', updated);
-        // Remove a requisição atualizada da lista local
         this.requisitions = this.requisitions.filter(req => req.id !== requisition.id);
       },
       error: (err) => {
@@ -66,6 +67,7 @@ export class EstablishmentManagementComponent implements OnInit {
       }
     });
   }
+  
 
   private mapStatus(status: any): StatusRequest {
     if (typeof status === 'string') {

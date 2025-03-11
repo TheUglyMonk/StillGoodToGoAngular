@@ -24,11 +24,8 @@ export class RequisitionService {
       );
   }
 
-    updateRequisition(requisition: Requisition): Observable<Requisition> {
-      if (!requisition.id) {
-          return throwError(() => new Error('ID da requisição é obrigatório'));
-      }
-      return this.http.put<Requisition>(`${this.apiUrl}/${requisition.id}`, requisition).pipe(
+  updateRequisition(id: number, requisition: Omit<Requisition, 'id'>): Observable<Requisition> {
+      return this.http.put<Requisition>(`${this.apiUrl}/${id}/status`, requisition).pipe(
           catchError(error => {
               console.error('Erro ao atualizar requisição:', error);
               return throwError(() => new Error('Erro ao atualizar requisição'));
