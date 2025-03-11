@@ -1,34 +1,31 @@
 <div class="bg-gradient-to-b from-green-50 to-white p-6 max-w-5xl mx-auto my-8 rounded-2xl shadow-lg">
-    <h2 class="text-3xl font-extrabold text-green-800 mb-6 text-center">
-      📰 Últimas Publicações
-    </h2>
-  
-    <div *ngIf="publications.length > 0; else noPublications">
-      <ul class="space-y-4">
-        <!-- Show first 3 publications or all based on showAll -->
-        <li *ngFor="let publication of (showAll ? publications : publications.slice(0, 3))" class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all">
-          <h3 class="text-lg font-semibold text-green-800 mb-2">{{ publication.description }}</h3>
-          <p class="text-xs text-gray-600 mb-2">
-            Price: {{ publication.price | currency }}
-          </p>
-          <span class="text-xs text-gray-500 block">Posted on: {{ publication.postDate | date:'dd/MM/yyyy' }}</span>
-          <span class="text-xs text-gray-500 block">Ends on: {{ publication.endDate | date:'dd/MM/yyyy' }}</span>
-          <div *ngIf="publication.status === 2" class="text-green-600 text-xs font-medium mt-2">
-            Status: Active
-          </div>
-          
-        </li>
-      </ul>
-      <!-- View All Button -->
-      <div class="text-center mt-4">
-        <button (click)="toggleViewAll()" class="bg-green-600 text-white font-semibold rounded-full px-5 py-2 shadow-md hover:bg-green-700 transition-all">
-          {{ showAll ? 'Ver Menos' : 'Ver Todos' }}
-        </button>
-      </div>
+  <h2 class="text-3xl font-extrabold text-green-800 mb-6 text-center">
+    📰 Últimas Publicações
+  </h2>
+
+  <div *ngIf="publications.length > 0; else noPublications">
+    <ul class="space-y-4">
+      <!-- Show first 3 publications or all based on showAll -->
+      <li *ngFor="let publication of (showAll ? publications : publications.slice(0, 3))"
+          class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer"
+          (click)="navigateToEstablishment(publication.establishmentId)">
+        <h3 class="text-lg font-semibold text-green-800 mb-2">{{ publication.description }}</h3>
+        <p class="text-xs text-gray-600 mb-2">
+          Price: {{ publication.price | currency }}
+        </p>
+        <span class="text-xs text-gray-500 block">Publicado em: {{ publication.postDate | date:'dd/MM/yyyy' }}</span>
+        <span class="text-xs text-gray-500 block">Acaba em: {{ publication.endDate | date:'dd/MM/yyyy' }}</span>
+      </li>
+    </ul>
+    <!-- View All Button -->
+    <div class="text-center mt-4">
+      <button (click)="toggleViewAll()" class="bg-green-600 text-white font-semibold rounded-full px-5 py-2 shadow-md hover:bg-green-700 transition-all">
+        {{ showAll ? 'Ver Menos' : 'Ver Todos' }}
+      </button>
     </div>
-  
-    <ng-template #noPublications>
-      <p class="text-center text-gray-700 mt-4">🚫 Nenhuma publicação disponível no momento.</p>
-    </ng-template>
   </div>
-  
+
+  <ng-template #noPublications>
+    <p class="text-center text-gray-700 mt-4">🚫 Nenhuma publicação disponível no momento.</p>
+  </ng-template>
+</div>
