@@ -20,7 +20,8 @@ export class FaqsManagementComponent implements OnInit {
   constructor(
     private faqsService: FaqsService,
     private fb: FormBuilder
-  ) {
+  )
+   {
     // Initialize the form
     this.faqForm = this.fb.group({
       question: ['', Validators.required],

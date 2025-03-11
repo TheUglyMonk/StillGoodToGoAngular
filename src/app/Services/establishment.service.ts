@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class EstablishmentService {
-  private apiUrl = '/establishment/active';
+  private apiUrl = '/establishment';
 
   constructor(private http: HttpClient) { }
 
