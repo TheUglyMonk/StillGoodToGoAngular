@@ -11,7 +11,7 @@
           (click)="navigateToEstablishment(publication.establishmentId)">
         <h3 class="text-lg font-semibold text-green-800 mb-2">{{ publication.description }}</h3>
         <p class="text-xs text-gray-600 mb-2">
-          Price: {{ publication.price | currency }}
+          Preço: {{ publication.price }} Eur
         </p>
         <span class="text-xs text-gray-500 block">Publicado em: {{ publication.postDate | date:'dd/MM/yyyy' }}</span>
         <span class="text-xs text-gray-500 block">Acaba em: {{ publication.endDate | date:'dd/MM/yyyy' }}</span>

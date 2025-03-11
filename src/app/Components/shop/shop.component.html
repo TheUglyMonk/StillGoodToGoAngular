@@ -1,5 +1,4 @@
 <div class="bg-gradient-to-b from-green-50 to-white p-6 max-w-5xl mx-auto my-8 rounded-2xl shadow-lg">
-  
     <!-- Shop Header Section -->
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-3xl font-extrabold text-green-800">
@@ -7,7 +6,7 @@
       </h2>
       <div class="flex items-center space-x-2">
         <span class="text-yellow-500 text-lg">{{ shop?.classification }} ⭐</span>
-        <button  class="text-green-600 hover:text-green-700">
+        <button (click)="toggleReviews()" class="text-green-600 hover:text-green-700">
           🔍 Ver Avaliações
         </button>
       </div>
@@ -30,3 +29,10 @@
     <div class="flex justify-center my-6">
       <div class="w-20 h-1 bg-green-500 rounded-full"></div>
     </div>
+
+    <!-- Shop Reviews Section (conditionally displayed) -->
+    <!-- Shop Reviews Section (conditionally displayed) -->
+    <app-shop-reviews *ngIf="showReviews && shop?.id" [shopId]="shop.id"></app-shop-reviews>
+
+    <!-- You can include other sections like Shop Publications here -->
+</div>

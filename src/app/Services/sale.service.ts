@@ -17,6 +17,10 @@ export class SaleService {
     private establishmentService: EstablishmentService
   ) {}
 
+  getSalesByEstablishmentId(establishmentId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.saleUrl}/establishment/${establishmentId}`);
+  }
+
   getSales(): Observable<Sale[]> {
     return this.http.get<any>(`${this.saleUrl}/client/${this.clientId}`).pipe(
       tap((response) => console.log('Sales Response:', response)),

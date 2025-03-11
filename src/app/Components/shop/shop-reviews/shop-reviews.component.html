@@ -1,0 +1,29 @@
+<div class="bg-white p-4 rounded-xl shadow-md mt-6">
+    <h3 class="text-xl font-bold text-green-800 mb-4">Avaliações</h3>
+  
+    <!-- Loading State -->
+    <div *ngIf="loading" class="text-center text-gray-500">
+      Carregando avaliações...
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="!loading && errorMessage" class="text-center text-red-500">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Reviews List -->
+    <ul *ngIf="!loading && reviews.length > 0" class="space-y-4">
+      <li *ngFor="let review of reviews" class="border-b pb-2">
+        <div class="flex justify-between">
+          <span class="text-yellow-500">{{ review.classification }} ⭐</span>
+        </div>
+        <p class="text-gray-600 text-sm italic">{{ review.comment }}</p>
+      </li>
+    </ul>
+  
+    <!-- No Reviews Message -->
+    <div *ngIf="!loading && reviews.length === 0" class="text-center text-gray-500">
+      Nenhuma avaliação encontrada.
+    </div>
+  </div>
+  

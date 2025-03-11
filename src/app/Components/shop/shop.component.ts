@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EstablishmentService } from '../../Services/establishment.service';
+import { HttpClient } from '@angular/common/http';
 import { Establishment } from '../../Models/Establishment';
+import { CommonModule } from '@angular/common';
+import { ShopReviewsComponent } from './shop-reviews/shop-reviews.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ShopReviewsComponent],
   templateUrl: './shop.component.html',
-  styleUrl: './shop.component.css'
+  styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
   shop!: Establishment;
+  showReviews = false;
   isLoading = true;
   errorMessage = '';
 
-  constructor(
-    private route: ActivatedRoute,
-    private establishmentService: EstablishmentService
-  ) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -28,16 +29,21 @@ export class ShopComponent implements OnInit {
   }
 
   fetchShopDetails(id: number): void {
-    this.establishmentService.getEstablishmentInfo(id).subscribe({
-      next: (data) => {
-        this.shop = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching shop details:', err);
-        this.errorMessage = 'Failed to load shop details.';
-        this.isLoading = false;
-      }
-    });
+    this.http.get<Establishment>(`${environment.apiBaseUrl}/establishment/${id}`)
+      .subscribe({
+        next: (data) => {
+          this.shop = data;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error fetching shop details:', err);
+          this.errorMessage = 'Failed to load shop details.';
+          this.isLoading = false;
+        }
+      });
+  }
+
+  toggleReviews(): void {
+    this.showReviews = !this.showReviews;
   }
 }
