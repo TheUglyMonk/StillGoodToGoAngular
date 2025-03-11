@@ -15,11 +15,14 @@
     <ul *ngIf="!loading && reviews.length > 0" class="space-y-4">
       <li *ngFor="let review of reviews" class="border-b pb-2">
         <div class="flex justify-between">
-          <span class="text-yellow-500">{{ review.classification }} ⭐</span>
+          <span class="text-yellow-500">{{ review.classification }}⭐</span>
         </div>
         <p class="text-gray-600 text-sm italic">{{ review.comment }}</p>
       </li>
     </ul>
+    <div class="flex justify-center my-6">
+        <div class="w-20 h-1 bg-green-500 rounded-full"></div>
+      </div>
   
     <!-- No Reviews Message -->
     <div *ngIf="!loading && reviews.length === 0" class="text-center text-gray-500">
