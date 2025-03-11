@@ -10,7 +10,7 @@ import { EstablishmentService } from './establishment.service';
 })
 export class SaleService {
   private saleUrl = `${environment.apiBaseUrl}/sale`;
-  private clientId = 8;
+  private clientId = 12;
 
   constructor(
     private http: HttpClient,
