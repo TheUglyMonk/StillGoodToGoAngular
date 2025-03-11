@@ -1,0 +1,70 @@
+<div class="bg-gradient-to-b from-green-50 to-white p-6 max-w-5xl mx-auto my-8 rounded-2xl shadow-lg">
+  <!-- Header Section -->
+  <h2 class="text-3xl font-extrabold text-green-800 mb-6 text-center">
+    🌱 Solicitação de Criação de Estabelecimento
+  </h2>
+
+  <!-- Form Section -->
+  <!-- Adicionamos o [formGroup] para vincular ao FormGroup definido no componente -->
+  <form [formGroup]="requisitionForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Nome do Usuário -->
+    <div>
+      <label for="userName" class="block text-sm font-medium text-green-800">Nome do Usuário</label>
+      <input type="text" id="userName" formControlName="userName" placeholder="Digite seu nome" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 placeholder-green-800 placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-sm font-medium text-green-800">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="Digite seu email" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 placeholder-green-800 placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required>
+    </div>
+
+    <!-- Senha -->
+    <div class="relative">
+      <label for="password" class="block text-sm font-medium text-green-800">Senha</label>
+      <input type="password" id="password" formControlName="password" placeholder="Digite sua senha" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 placeholder-green-800 placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required>
+    </div>
+
+    <!-- Latitude -->
+    <div>
+      <label for="latitude" class="block text-sm font-medium text-green-800">Latitude</label>
+      <input type="number" step="any" id="latitude" formControlName="latitude" placeholder="Digite a latitude" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 placeholder-green-800 placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required>
+    </div>
+
+    <!-- Longitude -->
+    <div>
+      <label for="longitude" class="block text-sm font-medium text-green-800">Longitude</label>
+      <input type="number" step="any" id="longitude" formControlName="longitude" placeholder="Digite a longitude" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 placeholder-green-800 placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required>
+    </div>
+
+    <!-- Descrição -->
+    <div>
+      <label for="description" class="block text-sm font-medium text-green-800">Descrição</label>
+      <textarea id="description" formControlName="description" rows="4" placeholder="Descreva o estabelecimento" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-lg px-5 py-2 placeholder-green-800 placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required></textarea>
+    </div>
+
+    <!-- Categoria -->
+    <div>
+      <label for="category" class="block text-sm font-medium text-green-800">Categoria</label>
+      <select id="category" formControlName="category" class="mt-1 block w-full border border-green-400 bg-white text-green-800 rounded-full px-5 py-2 focus:outline-none focus:ring-2 focus:ring-green-600 transition-shadow" required>
+        <option value="" disabled selected>Selecione uma categoria</option>
+        <option value="Bakery">Padaria</option>
+        <option value="restaurant">Restaurante</option>
+        <option value="pastryShop">Café</option>
+        <option value="OTHER">Outro</option>
+      </select>
+    </div>
+
+    <!-- Botão de Envio -->
+    <div class="flex justify-center">
+      <button type="submit" class="bg-green-600 text-white font-semibold rounded-full px-8 py-3 shadow-md hover:bg-green-700 transition-all">
+        Enviar Solicitação
+      </button>
+    </div>
+  </form>
+
+  <!-- Decorative Separator -->
+  <div class="flex justify-center my-10">
+    <div class="w-20 h-2 bg-green-500 rounded-full"></div>
+  </div>
+</div>

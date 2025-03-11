@@ -5,8 +5,8 @@ import { UserComponent } from './Components/user/user.component';
 import { ManagerComponent } from './Components/manager/manager.component';
 import { SignUpComponent } from './Components/auth/sign-up/sign-up.component';
 import { LoginComponent } from './Components/auth/login/login.component';
-import { RegisterEstablishmentComponent } from './Components/auth/register-establishment/register-establishment.component';
 import { ShopComponent } from './Components/shop/shop.component';
+import { RequisitionComponent } from './Components/auth/requisition/requisition.component';
 
 export const routes: Routes = [
     {path:"", component: BodyComponent},
@@ -16,6 +16,6 @@ export const routes: Routes = [
     {path:"manager", component: ManagerComponent},
     {path:"establishment", component: BodyComponent},
     {path:"profile", component: UserComponent},
-    {path:"register-establishment", component: RegisterEstablishmentComponent},
     {path: ":id", component: ShopComponent },  
+    {path:"register-establishment", component: RequisitionComponent},
 ];

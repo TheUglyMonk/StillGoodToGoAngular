@@ -1,1 +1,45 @@
-<p>establishment-management works!</p>
+<div class="bg-white p-6 rounded-2xl shadow-md">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-2xl font-bold text-green-700">Pedidos de Estabelecimentos</h3>
+      <button (click)="loadRequisitions()" class="text-green-600 hover:text-green-800 transition-colors">
+        🔄
+      </button>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center text-green-600">
+      Carregando...
+    </div>
+  
+    <!-- Requests List -->
+    <div *ngIf="!isLoading">
+      <!-- Debug: Verifique se os dados estão sendo passados corretamente -->
+      <div *ngIf="requisitions.length > 0">
+        <div *ngFor="let requisition of requisitions" class="p-4 border border-green-200 rounded-lg mb-4">
+          <div class="flex flex-col gap-2">
+            <h4 class="font-bold text-green-800">{{ requisition.userName }}</h4>
+            <p class="text-green-600">{{ requisition.description }}</p>
+            <div class="text-sm text-green-500">
+              <p>Email: {{ requisition.email }}</p>
+              <p>Localização: ({{ requisition.latitude | number }}, {{ requisition.longitude | number }})</p>
+            </div>
+            <div class="flex gap-2 mt-2">
+              <button (click)="approveRequisition(requisition)" 
+                      class="bg-green-500 text-white rounded-full px-4 py-1 hover:bg-green-600 transition-all">
+                Aprovar
+              </button>
+              <button (click)="rejectRequisition(requisition)" 
+                      class="bg-red-500 text-white rounded-full px-4 py-1 hover:bg-red-600 transition-all">
+                Rejeitar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Empty State -->
+      <div *ngIf="requisitions.length === 0" class="text-center text-green-600">
+        Nenhum pedido pendente
+      </div>
+    </div>
+  </div>
