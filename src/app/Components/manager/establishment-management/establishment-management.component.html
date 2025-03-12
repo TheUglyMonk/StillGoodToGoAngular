@@ -1,45 +1,135 @@
 <div class="bg-white p-6 rounded-2xl shadow-md">
-    <div class="flex justify-between items-center mb-4">
-      <h3 class="text-2xl font-bold text-green-700">Pedidos de Estabelecimentos</h3>
-      <button (click)="loadRequisitions()" class="text-green-600 hover:text-green-800 transition-colors">
-        🔄
-      </button>
-    </div>
-  
-    <!-- Loading State -->
-    <div *ngIf="isLoading" class="text-center text-green-600">
-      Carregando...
-    </div>
-  
-    <!-- Requests List -->
-    <div *ngIf="!isLoading">
-      <!-- Debug: Verifique se os dados estão sendo passados corretamente -->
-      <div *ngIf="requisitions.length > 0">
-        <div *ngFor="let requisition of requisitions" class="p-4 border border-green-200 rounded-lg mb-4">
-          <div class="flex flex-col gap-2">
-            <h4 class="font-bold text-green-800">{{ requisition.userName }}</h4>
-            <p class="text-green-600">{{ requisition.description }}</p>
-            <div class="text-sm text-green-500">
-              <p>Email: {{ requisition.email }}</p>
-              <p>Localização: ({{ requisition.latitude | number }}, {{ requisition.longitude | number }})</p>
-            </div>
-            <div class="flex gap-2 mt-2">
-              <button (click)="approveRequisition(requisition)" 
-                      class="bg-green-500 text-white rounded-full px-4 py-1 hover:bg-green-600 transition-all">
-                Aprovar
-              </button>
-              <button (click)="rejectRequisition(requisition)" 
-                      class="bg-red-500 text-white rounded-full px-4 py-1 hover:bg-red-600 transition-all">
-                Rejeitar
-              </button>
-            </div>
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-2xl font-bold text-green-700">Gestão de Estabelecimentos</h3>
+    <button (click)="loadRequisitions()" class="text-green-600 hover:text-green-800 transition-colors">
+      🔄
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center text-green-600">
+    Carregando...
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Estabelecimentos Aprovados</h3>
+      <div class="space-y-4">
+        <div *ngFor="let establishment of establishments" class="p-4 border border-green-200 rounded-lg">
+          <h4 class="font-bold text-green-800">{{ establishment.username }}</h4>
+          <p class="text-green-600">{{ establishment.description }}</p>
+          <div class="text-sm text-green-500">
+            <p>Email: {{ establishment.email }}</p>
+            <p>Localização: ({{ establishment.latitude | number }}, {{ establishment.longitude | number }})</p>
+            <p>Classificação: {{ establishment.classification }}</p>
+            <p>Categorias: {{ establishment.categories.join(', ') }}</p>
           </div>
+          <button (click)="openUpdateModal(establishment)" 
+                  class="mt-2 bg-blue-500 text-white rounded-full px-4 py-1 hover:bg-blue-600 transition-all">
+            Atualizar
+          </button>
+          <button (click)="deactivateEstablishment(establishment.id)" 
+                  class="mt-2 bg-red-500 text-white rounded-full px-4 py-1 hover:bg-red-600 transition-all ml-2">
+            Desativar
+          </button>
+        </div>
+
+        <div *ngIf="establishments.length === 0" class="text-center text-green-600">
+          Nenhum estabelecimento aprovado
         </div>
       </div>
-  
-      <!-- Empty State -->
-      <div *ngIf="requisitions.length === 0" class="text-center text-green-600">
-        Nenhum pedido pendente
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Pedidos de Estabelecimentos</h3>
+      <div class="space-y-4">
+        <div *ngFor="let requisition of requisitions" class="p-4 border border-green-200 rounded-lg">
+          <h4 class="font-bold text-green-800">{{ requisition.userName }}</h4>
+          <p class="text-green-600">{{ requisition.description }}</p>
+          <div class="text-sm text-green-500">
+            <p>Email: {{ requisition.email }}</p>
+            <p>Localização: ({{ requisition.latitude | number }}, {{ requisition.longitude | number }})</p>
+          </div>
+          <div class="flex gap-2 mt-2">
+            <button (click)="approveRequisition(requisition)" 
+                    class="bg-green-500 text-white rounded-full px-4 py-1 hover:bg-green-600 transition-all">
+              Aprovar
+            </button>
+            <button (click)="rejectRequisition(requisition)" 
+                    class="bg-red-500 text-white rounded-full px-4 py-1 hover:bg-red-600 transition-all">
+              Rejeitar
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="requisitions.length === 0" class="text-center text-green-600">
+          Nenhum pedido pendente
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="isUpdateModalOpen && selectedEstablishment" 
+     class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 mt-32"
+     (click)="closeUpdateModal()"> 
+  <div class="bg-white rounded-2xl shadow-md w-full max-w-md max-h-[80vh] flex flex-col" 
+       (click)="$event.stopPropagation()">
+    <div class="p-6 flex-1 overflow-y-auto">
+      <h3 class="text-2xl font-bold text-green-700 mb-4">Atualizar Estabelecimento</h3>
+      
+      <!-- Formulário corrigido -->
+      <form (ngSubmit)="onUpdateSubmit()" class="space-y-4">
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Nome</label>
+          <input [(ngModel)]="selectedEstablishment.username" name="username" type="text" 
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Password</label>
+          <input [(ngModel)]="selectedEstablishment.password" name="password" type="text"
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Email</label>
+          <input [(ngModel)]="selectedEstablishment.email" name="email" type="email" 
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Descrição</label>
+          <textarea [(ngModel)]="selectedEstablishment.description" name="description" 
+                    class="w-full border border-green-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Classificação</label>
+          <input [(ngModel)]="selectedEstablishment.classification" name="classification" type="number" 
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Categorias</label>
+          <input [(ngModel)]="selectedEstablishment.categories" name="categories" type="text" 
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Latitude</label>
+          <input [(ngModel)]="selectedEstablishment.latitude" name="latitude" type="number" 
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+        <div>
+          <label class="block text-green-800 font-semibold mb-2">Longitude</label>
+          <input [(ngModel)]="selectedEstablishment.longitude" name="longitude" type="number" 
+                 class="w-full border border-green-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+
+        <div class="p-6 border-t border-green-200">
+          <div class="flex justify-end gap-4">
+            <button type="button" class="bg-gray-500 text-white rounded-full px-6 py-2 hover:bg-gray-600 transition-all" 
+                    (click)="closeUpdateModal()">Cancelar</button>
+            <button type="submit" class="bg-green-600 text-white rounded-full px-6 py-2 hover:bg-green-700 transition-all">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
