@@ -15,4 +15,6 @@ export interface Establishment {
     classification: number;
     categories: number[];
     active: boolean;
+    categoryNames?: string[]; 
+    totalAmountReceived: number;
   }

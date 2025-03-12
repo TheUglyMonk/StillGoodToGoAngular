@@ -26,21 +26,18 @@ export class SaleService {
       tap((response) => console.log('Sales Response:', response)),
       switchMap((response) => {
         let sales: Sale[];
-        // Check if response is an array
         if (Array.isArray(response)) {
           sales = response;
         } else if (response && response.sales && Array.isArray(response.sales)) {
-          // If sales are wrapped inside a property
           sales = response.sales;
         } else if (response && !Array.isArray(response)) {
-          // If response is a single sale object, wrap it into an array
           sales = [response];
         } else {
           sales = [];
         }
 
         if (!sales.length) {
-          return of([]); // Return an observable of an empty array if no sales
+          return of([]); 
         }
 
         const requests = sales.map((sale: Sale) =>

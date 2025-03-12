@@ -20,5 +20,5 @@ export class EstablishmentService {
     return this.http.get<any>(`${environment.apiBaseUrl}/establishment/${establishmentId}`);
   }
 
-  
+
 }

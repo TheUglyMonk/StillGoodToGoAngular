@@ -3,39 +3,46 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserInfo } from '../Models/UserInfo';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientService { 
   private apiUrl = `${environment.apiBaseUrl}/client`;
-  private clientId = 12;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getFavoriteShops(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/favorites/${this.clientId}`);
+    const clientId = this.authService.getUserId();
+    return this.http.get<any[]>(`${this.apiUrl}/favorites/${clientId}`);
   }
 
   removeFavorite(establishmentId: number): Observable<void> {
+    const clientId = this.authService.getUserId();
     return this.http.post<void>(
-      `${this.apiUrl}/managefavorite/${this.clientId}/${establishmentId}`,
+      `${this.apiUrl}/managefavorite/${clientId}/${establishmentId}`,
       {}
     );
   }
 
-  // Method to create a new client
+  toggleFavorite(establishmentId: number): Observable<any> {
+    const clientId = this.authService.getUserId();
+    return this.http.post<any>(`${this.apiUrl}/managefavorite/${clientId}/${establishmentId}`, {});
+  }
+
   createClient(clientData: { username: string; email: string; password: string; nif: number }): Observable<any> {
     return this.http.post<any>(this.apiUrl, clientData);
   }
   
   getUserInfo(): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.apiUrl}/${this.clientId}`);
+    const clientId = this.authService.getUserId();
+    return this.http.get<UserInfo>(`${this.apiUrl}/${clientId}`);
   }
 
   updateUserInfo(user: any): Observable<any> {
-    console.log('Calling updateUserInfo API with:', user);
-    return this.http.put(`${this.apiUrl}/${this.clientId}`, user).pipe(
+    const clientId = this.authService.getUserId();
+    return this.http.put(`${this.apiUrl}/${clientId}`, user).pipe(
       tap(response => console.log('updateUserInfo API response:', response))
     );
   }

@@ -1,0 +1,32 @@
+<div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <h3 class="text-2xl font-bold text-green-800 mb-4 text-center">Minhas Publicações</h3>
+    
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center text-gray-500">
+      Carregando publicações...
+    </div>
+    
+    <!-- Error Message -->
+    <div *ngIf="!isLoading && errorMessage" class="text-center text-red-500">
+      {{ errorMessage }}
+    </div>
+    
+    <!-- Publications List -->
+    <div *ngIf="!isLoading && publications.length > 0">
+      <ul class="space-y-4">
+        <li *ngFor="let pub of publications" class="border-b pb-2">
+          <h3 class="text-lg font-semibold text-green-800">{{ pub.description }}</h3>
+          <p class="text-gray-600">Preço: {{ pub.price | currency }}</p>
+          <p class="text-gray-500 text-xs">Publicado em: {{ pub.postDate | date:'dd/MM/yyyy' }}</p>
+          <p class="text-gray-500 text-xs">Expira em: {{ pub.endDate | date:'dd/MM/yyyy' }}</p>
+          <p class="text-gray-500 text-xs">Status: {{ pub.status }}</p>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- No Publications Message -->
+    <div *ngIf="!isLoading && publications.length === 0" class="text-center text-gray-500">
+      Nenhuma publicação encontrada.
+    </div>
+  </div>
+  

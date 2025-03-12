@@ -1,1 +1,38 @@
-<p>establishment works!</p>
+<div class="bg-white p-6 rounded-xl shadow-md mt-6">
+    <!-- Establishment Info -->
+    <div *ngIf="isLoading" class="text-center text-gray-500">Carregando estabelecimento...</div>
+    <div *ngIf="!isLoading && establishment" class="mb-4">
+      <h2 class="text-2xl font-semibold text-green-800 text-center">{{ establishment.username }}</h2>
+      <p class="text-gray-600 text-center">{{ establishment.description }}</p>
+      <p class="text-gray-500 text-center">Classificação: ⭐{{ establishment.classification }}</p>
+      <p class="text-gray-500 text-center">Ganhos até ao dia: ⭐{{ establishment.totalAmountReceived }}</p>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="text-center text-red-500">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Publication Form -->
+    <form [formGroup]="publicationForm" (ngSubmit)="submitPublication()" class="mt-6">
+      <label class="block text-gray-700">Descrição:</label>
+      <input type="text" formControlName="description" class="border rounded-lg p-2 w-full" />
+  
+      <label class="block text-gray-700 mt-4">Preço:</label>
+      <input type="number" formControlName="price" class="border rounded-lg p-2 w-full" />
+  
+      <label class="block text-gray-700 mt-4">Data de Expiração:</label>
+      <input type="date" formControlName="endDate" class="border rounded-lg p-2 w-full" />
+  
+      <button type="submit" [disabled]="isSubmitting" class="mt-4 bg-green-600 text-white py-2 px-4 rounded-lg w-full">
+        {{ isSubmitting ? 'Publicando...' : 'Publicar' }}
+      </button>
+  
+      <p *ngIf="successMessage" class="text-green-600 text-center mt-4">{{ successMessage }}</p>
+      <p *ngIf="errorMessage" class="text-red-500 text-center mt-4">{{ errorMessage }}</p>
+    </form>
+    <!-- Publications Component -->
+    <app-publications></app-publications>
+  
+  </div>
+  

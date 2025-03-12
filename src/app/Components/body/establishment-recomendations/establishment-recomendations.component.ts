@@ -3,6 +3,7 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { EstablishmentService } from '../../../Services/establishment.service';
 import { Establishment } from '../../../Models/Establishment';
 import { CommonModule } from '@angular/common';
+import { Category } from '../../../Models/Enums/Category'; // Import your enum
 
 @Component({
   selector: 'app-establishment-recommendations',
@@ -12,13 +13,16 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./establishment-recomendations.component.css']
 })
 export class EstablishmentRecomendationsComponent implements OnInit {
-  recommendations: Establishment[] = [];
+  recommendations: (Establishment & { categoryNames: string[] })[] = []; // Add categoryNames
 
   constructor(private establishmentService: EstablishmentService) {}
 
   ngOnInit() {
     this.establishmentService.getEstablishments().subscribe(establishments => {
-      this.recommendations = this.getRandomEstablishments(establishments, 5);
+      this.recommendations = this.getRandomEstablishments(establishments, 5).map(est => ({
+        ...est,
+        categoryNames: est.categories.map(catId => Category[catId] || 'Desconhecido') // Map categories
+      }));
     });
   }
 

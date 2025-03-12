@@ -7,6 +7,7 @@ import { SignUpComponent } from './Components/auth/sign-up/sign-up.component';
 import { LoginComponent } from './Components/auth/login/login.component';
 import { RequisitionComponent } from './Components/auth/requisition/requisition.component';
 import { ShopComponent } from './Components/shop/shop.component';
+import { EstablishmentComponent } from './Components/establishment/establishment.component';
 
 export const routes: Routes = [
     {path:"", component: BodyComponent},
@@ -14,7 +15,7 @@ export const routes: Routes = [
     {path:"sign-in", component: LoginComponent},
     {path:"favorites", component: FavoritesComponent},
     {path:"manager", component: ManagerComponent},
-    {path:"establishment", component: BodyComponent},
+    {path:"establishment", component: EstablishmentComponent},
     {path:"profile", component: UserComponent},
     {path:"establishment/register-establishment", component: RequisitionComponent},
     {path: ":id", component: ShopComponent },  
