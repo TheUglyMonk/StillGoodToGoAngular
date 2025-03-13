@@ -4,4 +4,6 @@ export interface Review {
     classification: number;
     establishmentId: number;
     establishmentUsername?: string;
+    clientId? : number;
+    publicationId?: number;
 }
