@@ -13,40 +13,126 @@
         <button (click)="toggleEdit()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
           {{ editMode ? 'Fechar' : 'Editar Conta' }}
         </button>
-        <button (click)="toggleAddFund()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        <button (click)="toggleAddFund()"
+          class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
           {{ addFundMode ? 'Fechar' : 'Adicionar Saldo' }}
         </button>
       </div>
     </div>
   </div>
-  <!-- Sales History Section -->
-<div *ngIf="sales.length > 0" class="mt-8">
-  <h3 class="text-xl font-semibold text-green-800 mb-4">🛒 Histórico de Compras</h3>
-  <ul class="space-y-4">
-    <li *ngFor="let sale of sales" class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
-      <h4 class="text-green-700 font-semibold">📦 Publicação {{sale.id}}</h4>
-      <p class="text-gray-700">Preço: €{{ sale.price.toFixed(2) }}</p>
-      <p class="text-gray-600">Data da Compra: {{ sale.date[2] }}/{{ sale.date[1] }}/{{ sale.date[0] }}</p>
-      <p class="text-gray-500 text-sm">
-        💳 Método de Pagamento: 
-        <span *ngIf="sale.paymentMethod === 0">Saldo</span>
-        <span *ngIf="sale.paymentMethod === 1">Cartão de Crédito</span>
-      </p>
+  <!-- Formulário de Edição -->
 
-      <!-- "Give Review" button if no review exists -->
-      <button *ngIf="!sale.review" (click)="openReviewForm(sale)" 
-        class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-        ✍️ Dar Avaliação
-      </button>
 
-      <!-- Display review if it exists -->
-      <div *ngIf="sale.review" class="mt-2 bg-gray-100 p-3 rounded">
-        <p class="text-yellow-500 text-sm">⭐ {{ sale.review.classification }}/5</p>
-        <p class="text-gray-700">"{{ sale.review.comment }}"</p>
+
+  <div *ngIf="editMode" class="mb-6">
+
+
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="bg-white p-4 rounded-lg shadow-md">
+
+
+      <!-- Campos do formulário -->
+
+
+      <div class="mb-4">
+
+
+        <label for="username" class="block text-gray-700">Username</label>
+
+
+        <input id="username" type="text" formControlName="username" class="w-full p-2 border rounded">
+
+
       </div>
-    </li>
-  </ul>
-</div>
+
+
+      <div class="mb-4">
+
+
+        <label for="email" class="block text-gray-700">Email</label>
+
+
+        <input id="email" type="email" formControlName="email" class="w-full p-2 border rounded">
+
+
+      </div>
+
+
+      <div class="mb-4">
+
+
+        <label for="password" class="block text-gray-700">Senha</label>
+
+
+        <input id="password" type="password" formControlName="password" class="w-full p-2 border rounded">
+
+
+      </div>
+
+
+      <div class="mb-4">
+
+
+        <label for="nif" class="block text-gray-700">NIF</label>
+
+        <input id="nif" type="number" formControlName="nif" class="w-full p-2 border rounded">
+      </div>
+      <button type="submit" [disabled]="updating" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+        Salvar
+      </button>
+      <div *ngIf="updateError" class="mt-2 text-red-600">{{ updateError }}</div>
+    </form>
+  </div>
+
+  <!-- Formulário para Adicionar Saldo -->
+  <div *ngIf="addFundMode" class="mb-6">
+    <form [formGroup]="addFundForm" (ngSubmit)="onAddFundSubmit()" class="bg-white p-4 rounded-lg shadow-md">
+      <div class="mb-4">
+        <label for="balance" class="block text-gray-700">Valor a Adicionar</label>
+        <input id="balance" type="number" formControlName="balance" placeholder="Insira o valor"
+          class="w-full p-2 border rounded" />
+        <div *ngIf="addFundForm.get('balance')?.invalid && addFundForm.get('balance')?.touched"
+          class="text-red-500 text-sm">
+          Insira um valor válido (mínimo 1).
+        </div>
+      </div>
+      <button type="submit" [disabled]="addingFund"
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        Adicionar Saldo
+      </button>
+      <div *ngIf="addFundError" class="mt-2 text-red-600">
+        {{ addFundError }}
+      </div>
+    </form>
+  </div>
+
+  <!-- Sales History Section -->
+  <div *ngIf="sales.length > 0" class="mt-8">
+    <h3 class="text-xl font-semibold text-green-800 mb-4">🛒 Histórico de Compras</h3>
+    <ul class="space-y-4">
+      <li *ngFor="let sale of sales" class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+        <h4 class="text-green-700 font-semibold">📦 Publicação {{sale.id}}</h4>
+        <p class="text-gray-700">Preço: €{{ sale.price.toFixed(2) }}</p>
+        <p class="text-gray-600">Data da Compra: {{ sale.date[2] }}/{{ sale.date[1] }}/{{ sale.date[0] }}</p>
+        <p class="text-gray-500 text-sm">
+          💳 Método de Pagamento:
+          <span *ngIf="sale.paymentMethod === 0">Saldo</span>
+          <span *ngIf="sale.paymentMethod === 1">Cartão de Crédito</span>
+        </p>
+
+        <!-- "Give Review" button if no review exists -->
+        <button *ngIf="!sale.review" (click)="openReviewForm(sale)"
+          class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+          ✍️ Dar Avaliação
+        </button>
+
+        <!-- Display review if it exists -->
+        <div *ngIf="sale.review" class="mt-2 bg-gray-100 p-3 rounded">
+          <p class="text-yellow-500 text-sm">⭐ {{ sale.review.classification }}/5</p>
+          <p class="text-gray-700">"{{ sale.review.comment }}"</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 
   <!-- No Sales Message -->
   <div *ngIf="!loading && sales.length === 0" class="text-center text-gray-600">
@@ -85,18 +171,15 @@
     <form [formGroup]="addFundForm" (ngSubmit)="onAddFundSubmit()" class="bg-white p-4 rounded-lg shadow-md">
       <div class="mb-4">
         <label for="balance" class="block text-gray-700">Valor a Adicionar</label>
-        <input
-          id="balance"
-          type="number"
-          formControlName="balance"
-          placeholder="Insira o valor"
-          class="w-full p-2 border rounded"
-        />
-        <div *ngIf="addFundForm.get('balance')?.invalid && addFundForm.get('balance')?.touched" class="text-red-500 text-sm">
+        <input id="balance" type="number" formControlName="balance" placeholder="Insira o valor"
+          class="w-full p-2 border rounded" />
+        <div *ngIf="addFundForm.get('balance')?.invalid && addFundForm.get('balance')?.touched"
+          class="text-red-500 text-sm">
           Insira um valor válido (mínimo 1).
         </div>
       </div>
-      <button type="submit" [disabled]="addingFund" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+      <button type="submit" [disabled]="addingFund"
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
         Adicionar Saldo
       </button>
       <div *ngIf="addFundError" class="mt-2 text-red-600">
