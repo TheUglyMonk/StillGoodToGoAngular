@@ -5,5 +5,7 @@ export interface UserInfo {
     role: number; 
     password: string;
     nif: number;
+    balance: number;
+    totalAmountSpent: number;
   }
   

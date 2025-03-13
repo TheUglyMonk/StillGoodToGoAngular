@@ -1,20 +1,80 @@
 <div class="max-w-4xl mx-auto p-6">
   <h2 class="text-2xl font-bold text-green-800 mb-4">👤 Perfil do Usuário</h2>
   
-  <!-- User Info Display -->
+  <!-- Informações do Usuário -->
   <div *ngIf="!loading && userInfo" class="space-y-4 mb-6">
     <div class="p-4 bg-white shadow-md rounded-lg flex justify-between items-center">
       <div>
-        <h3 class="text-lg font-semibold text-green-700">Username: {{ userInfo.username }}</h3>
+        <h3 class="text-gray-600">Username: {{ userInfo.username }}</h3>
         <p class="text-gray-600">Email: {{ userInfo.email }}</p>
+        <p class="text-gray-600">Nif: {{ userInfo.nif }}</p>
+        <p class="text-gray-600">Saldo: {{ userInfo.balance }}€</p>
+        <p class="text-gray-600">Total Gasto: {{ userInfo.totalAmountSpent }}€</p>
       </div>
-      <button (click)="toggleEdit()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-        {{ editMode ? 'Fechar' : 'Editar Conta' }}
-      </button>
+      <div class="flex flex-col gap-2">
+        <button (click)="toggleEdit()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+          {{ editMode ? 'Fechar' : 'Editar Conta' }}
+        </button>
+        <button (click)="toggleAddFund()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+          {{ addFundMode ? 'Fechar' : 'Adicionar Saldo' }}
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Client Reviews Section -->
+  <!-- Formulário de Edição -->
+  <div *ngIf="editMode" class="mb-6">
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="bg-white p-4 rounded-lg shadow-md">
+      <!-- Campos do formulário -->
+      <div class="mb-4">
+        <label for="username" class="block text-gray-700">Username</label>
+        <input id="username" type="text" formControlName="username" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700">Email</label>
+        <input id="email" type="email" formControlName="email" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label for="password" class="block text-gray-700">Senha</label>
+        <input id="password" type="password" formControlName="password" class="w-full p-2 border rounded">
+      </div>
+      <div class="mb-4">
+        <label for="nif" class="block text-gray-700">NIF</label>
+        <input id="nif" type="number" formControlName="nif" class="w-full p-2 border rounded">
+      </div>
+      <button type="submit" [disabled]="updating" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+        Salvar
+      </button>
+      <div *ngIf="updateError" class="mt-2 text-red-600">{{ updateError }}</div>
+    </form>
+  </div>
+
+  <!-- Formulário para Adicionar Saldo -->
+  <div *ngIf="addFundMode" class="mb-6">
+    <form [formGroup]="addFundForm" (ngSubmit)="onAddFundSubmit()" class="bg-white p-4 rounded-lg shadow-md">
+      <div class="mb-4">
+        <label for="balance" class="block text-gray-700">Valor a Adicionar</label>
+        <input
+          id="balance"
+          type="number"
+          formControlName="balance"
+          placeholder="Insira o valor"
+          class="w-full p-2 border rounded"
+        />
+        <div *ngIf="addFundForm.get('balance')?.invalid && addFundForm.get('balance')?.touched" class="text-red-500 text-sm">
+          Insira um valor válido (mínimo 1).
+        </div>
+      </div>
+      <button type="submit" [disabled]="addingFund" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        Adicionar Saldo
+      </button>
+      <div *ngIf="addFundError" class="mt-2 text-red-600">
+        {{ addFundError }}
+      </div>
+    </form>
+  </div>
+
+  <!-- Seção de Avaliações -->
   <div *ngIf="reviews.length > 0" class="mt-8">
     <h3 class="text-xl font-semibold text-green-800 mb-4">⭐ Minhas Avaliações</h3>
     <ul class="space-y-4">
@@ -26,7 +86,7 @@
     </ul>
   </div>
 
-  <!-- No Reviews Message -->
+  <!-- Mensagem caso não haja avaliações -->
   <div *ngIf="!loading && reviews.length === 0" class="text-center text-gray-600">
     🚫 Nenhuma avaliação encontrada.
   </div>
