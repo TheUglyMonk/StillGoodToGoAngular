@@ -14,7 +14,7 @@ export class PublicationService {
   constructor(private http: HttpClient) { }
 
   getLatestPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>(this.apiUrl);
+    return this.http.get<Publication[]>(`${this.apiUrl}/all/available`);
   }
 
   getPublicationsByEstablishmentId(establishmentId: number): Observable<Publication[]> {

@@ -3,4 +3,5 @@ export interface Review {
     comment: string;
     classification: number;
     establishmentId: number;
+    establishmentUsername?: string;
 }

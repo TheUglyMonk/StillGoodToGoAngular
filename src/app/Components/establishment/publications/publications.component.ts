@@ -42,8 +42,8 @@ export class PublicationsComponent implements OnInit {
       error: (error) => {
         console.error('Error fetching publications:', error);
         this.errorMessage = 'Erro ao carregar publicações.';
-        this.publications = []; // Clear publications if error occurs
-        this.isLoading = false; // Stop loading
+        this.publications = []; 
+        this.isLoading = false; 
       }
     });
   }}

@@ -1,23 +1,40 @@
 <div class="bg-gradient-to-b from-green-50 to-white p-6 max-w-5xl mx-auto my-8 rounded-2xl shadow-lg">
   <h2 class="text-3xl font-extrabold text-green-800 mb-6 text-center">
-    📰 Últimas Publicações
+    📰 Disponíveis Agora!
   </h2>
 
   <div *ngIf="publications.length > 0; else noPublications">
     <ul class="space-y-4">
-      <!-- Show first 3 publications or all based on showAll -->
-      <li *ngFor="let publication of (showAll ? publications : publications.slice(0, 3))"
-          class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all cursor-pointer"
-          (click)="navigateToEstablishment(publication.establishmentId)">
-        <h3 class="text-lg font-semibold text-green-800 mb-2">{{ publication.description }}</h3>
-        <p class="text-xs text-gray-600 mb-2">
-          Preço: {{ publication.price }} Eur
-        </p>
-        <span class="text-xs text-gray-500 block">Publicado em: {{ publication.postDate | date:'dd/MM/yyyy' }}</span>
-        <span class="text-xs text-gray-500 block">Acaba em: {{ publication.endDate | date:'dd/MM/yyyy' }}</span>
+      <li *ngFor="let publication of (showAll ? publications : publications.slice(0, 3)); let i = index"
+          class="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all flex items-center gap-4">
+        
+        <!-- Image -->
+        <img [src]="getPublicationImage(i)" alt="Imagem da publicação"
+             class="w-24 h-24 object-cover rounded-lg shadow-sm">
+
+        <!-- Text content -->
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold text-green-800 mb-1">{{ publication.description }}</h3>
+          <p class="text-xs text-gray-600 mb-1">💰 Preço: {{ publication.price }} Eur</p>
+          <span class="text-xs text-gray-500 block">📅 Publicado em: {{ publication.postDate | date:'dd/MM/yyyy' }}</span>
+          <span class="text-xs text-gray-500 block">⏳ Acaba em: {{ publication.endDate | date:'dd/MM/yyyy' }}</span>
+        </div>
+
+        <!-- Payment Options & Buy Button -->
+        <div class="flex flex-col items-end">
+          <select [(ngModel)]="selectedPaymentMethod[publication.id]" class="mb-2 px-2 py-1 border rounded">
+            <option value="Balance">Saldo</option>
+            <option value="Store">Loja</option>
+          </select>
+
+          <button (click)="buyPublication(publication.id, 1)" 
+                  class="bg-green-600 text-white font-semibold rounded px-4 py-2 shadow-md hover:bg-green-700 transition-all">
+            🛒 Comprar
+          </button>
+        </div>
       </li>
     </ul>
-    <!-- View All Button -->
+
     <div class="text-center mt-4">
       <button (click)="toggleViewAll()" class="bg-green-600 text-white font-semibold rounded-full px-5 py-2 shadow-md hover:bg-green-700 transition-all">
         {{ showAll ? 'Ver Menos' : 'Ver Todos' }}

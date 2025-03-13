@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserInfo } from '../Models/UserInfo';
 import { AuthService } from './auth.service';
+import { Review } from '../Models/Review';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,10 @@ export class ClientService {
       `${this.apiUrl}/managefavorite/${clientId}/${establishmentId}`,
       {}
     );
+  }
+
+  getClientReviews(clientId: number): Observable<Review[]> {
+    return this.http.get<Review[]>(`${environment.apiBaseUrl}/reviews/client/${clientId}`);
   }
 
   toggleFavorite(establishmentId: number): Observable<any> {

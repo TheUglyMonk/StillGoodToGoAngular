@@ -10,7 +10,7 @@ import { EstablishmentService } from './establishment.service';
 })
 export class SaleService {
   private saleUrl = `${environment.apiBaseUrl}/sale`;
-  private clientId = 12;
+  private clientId = 2;
 
   constructor(
     private http: HttpClient,
@@ -19,6 +19,11 @@ export class SaleService {
 
   getSalesByEstablishmentId(establishmentId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.saleUrl}/establishment/${establishmentId}`);
+  }
+  
+  buyPublication(publicationId: number, clientId: number, paymentMethod: string): Observable<any> {
+    const body = { paymentMethod };
+    return this.http.post(`${this.saleUrl}/${publicationId}/${clientId}`, body);
   }
 
   getSales(): Observable<Sale[]> {

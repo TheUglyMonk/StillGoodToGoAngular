@@ -15,9 +15,11 @@
     <ul *ngIf="!loading && publications.length > 0" class="space-y-4">
         <li *ngFor="let pub of publications" class="border-b pb-3">
             <h4 class="text-lg font-semibold text-green-800">{{ pub.description }}</h4>
-            <p class="text-gray-600 text-sm">Preço: {{ pub.price | currency }}</p>
+            <p class="text-gray-600 text-sm">Preço: {{ pub.price }} Eur</p>
             <p class="text-gray-500 text-xs">Publicado em: {{ pub.postDate | date:'dd/MM/yyyy' }}</p>
             <p class="text-gray-500 text-xs">Acaba em: {{ pub.endDate | date:'dd/MM/yyyy' }}</p>
+            <p class="text-gray-500 text-xs">Status: {{pub.status == 0 ? "Available": pub.status == 1?"Sold":"Unavailable"}}</p>
+            
         </li>
     </ul>
 

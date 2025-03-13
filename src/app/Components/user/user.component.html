@@ -1,74 +1,33 @@
 <div class="max-w-4xl mx-auto p-6">
-    <h2 class="text-2xl font-bold text-green-800 mb-4">👤 Perfil do Usuário</h2>
-    
-    <!-- Loading State -->
-    <div *ngIf="loading" class="text-center text-gray-600">Carregando...</div>
-    
-    <!-- User Info Display -->
-    <div *ngIf="!loading && userInfo" class="space-y-4 mb-6">
-      <div class="p-4 bg-white shadow-md rounded-lg flex justify-between items-center">
-        <div>
-          <h3 class="text-lg font-semibold text-green-700">Username: {{ userInfo!.username }}</h3>
-          <p class="text-gray-600">Email: {{ userInfo!.email }}</p>
-          <p class="text-gray-600">
-            Role: 
-            <span *ngIf="userInfo!.role === 0" class="text-blue-600">Admin</span>
-            <span *ngIf="userInfo!.role === 1" class="text-green-600">Client</span>
-            <span *ngIf="userInfo!.role === 2" class="text-purple-600">Establishment</span>
-          </p>
-          <p class="text-gray-600">NIF: {{ userInfo!.nif }}</p>
-        </div>
-        <!-- Button to Toggle Update Form -->
-        <button (click)="toggleEdit()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-          {{ editMode ? 'Fechar' : 'Editar Conta' }}
-        </button>
+  <h2 class="text-2xl font-bold text-green-800 mb-4">👤 Perfil do Usuário</h2>
+  
+  <!-- User Info Display -->
+  <div *ngIf="!loading && userInfo" class="space-y-4 mb-6">
+    <div class="p-4 bg-white shadow-md rounded-lg flex justify-between items-center">
+      <div>
+        <h3 class="text-lg font-semibold text-green-700">Username: {{ userInfo.username }}</h3>
+        <p class="text-gray-600">Email: {{ userInfo.email }}</p>
       </div>
-    </div>
-    
-    <!-- Update Account Form (Only Visible When editMode is True) -->
-    <div *ngIf="editMode" class="p-4 bg-white shadow-md rounded-lg mb-8">
-      <h3 class="text-xl font-bold text-green-800 mb-4">Atualizar Conta</h3>
-      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-        <div class="mb-4">
-          <label class="block text-gray-700">Username</label>
-          <input formControlName="username" type="text" class="w-full p-2 border rounded" />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700">Email</label>
-          <input formControlName="email" type="email" class="w-full p-2 border rounded" />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700">Password</label>
-          <input formControlName="password" type="password" class="w-full p-2 border rounded" />
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700">NIF</label>
-          <input formControlName="nif" type="text" class="w-full p-2 border rounded" />
-        </div>
-        <div *ngIf="updateError" class="text-red-500 mb-4">
-          {{ updateError }}
-        </div>
-        <button type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition" [disabled]="updating">
-          {{ updating ? 'Atualizando...' : 'Atualizar Conta' }}
-        </button>
-      </form>
-    </div>
-    
-    <!-- Latest Sales/Orders Section -->
-    <div *ngIf="!loading && sales.length > 0" class="mt-8">
-      <h3 class="text-xl font-semibold text-green-800 mb-4">🛍️ Últimas Compras/Vendas</h3>
-      <div *ngFor="let sale of sales" class="p-4 bg-white shadow-md rounded-lg flex flex-col border border-gray-200 mb-4">
-        <div class="flex flex-col">
-          <p class="text-gray-600">Preço: {{ sale.price }} Eur</p>
-          <p class="text-gray-600">Date: {{ sale.date[2] }}/{{ sale.date[1] }}/{{ sale.date[0] }}</p>
-          <p class="text-gray-600">Establishment: {{ sale.establishmentName }}</p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- No Sales Message -->
-    <div *ngIf="!loading && sales.length === 0" class="text-center text-gray-600">
-      🚫 Você não tem compras ou vendas registradas.
+      <button (click)="toggleEdit()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+        {{ editMode ? 'Fechar' : 'Editar Conta' }}
+      </button>
     </div>
   </div>
-  
+
+  <!-- Client Reviews Section -->
+  <div *ngIf="reviews.length > 0" class="mt-8">
+    <h3 class="text-xl font-semibold text-green-800 mb-4">⭐ Minhas Avaliações</h3>
+    <ul class="space-y-4">
+      <li *ngFor="let review of reviews" class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+        <h4 class="text-green-700 font-semibold">📍 {{ review.establishmentUsername }}</h4>
+        <p class="text-gray-700 mt-1">"{{ review.comment }}"</p>
+        <p class="text-yellow-500 text-sm">⭐ {{ review.classification }}/5</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- No Reviews Message -->
+  <div *ngIf="!loading && reviews.length === 0" class="text-center text-gray-600">
+    🚫 Nenhuma avaliação encontrada.
+  </div>
+</div>
