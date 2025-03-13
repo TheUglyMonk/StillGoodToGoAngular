@@ -1,3 +1,5 @@
+import { PaymentMethod } from "./Enums/PaymentMethod";
+
 export interface Sale {
     id: number;
     price: number;
@@ -7,5 +9,6 @@ export interface Sale {
     establishmentId: number;
     clientId: number;
     establishmentName?: string; 
+    paymentMethod?: PaymentMethod;
   }
   

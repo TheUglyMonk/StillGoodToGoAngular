@@ -57,9 +57,15 @@ export class UserComponent implements OnInit {
   }
 
   getSales() {
-    this.saleService.getSales().subscribe((data) => {
-      this.sales = data;
-    });
+    
+    this.saleService.getSalesByClient(2).subscribe(
+      (data) => {
+        this.sales = data;
+      },
+      (error) => {
+        console.error("Error fetching sales:", error);
+      }
+    );
   }
 
    getReviews() {
