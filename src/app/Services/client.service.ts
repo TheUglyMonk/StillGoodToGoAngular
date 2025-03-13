@@ -51,6 +51,22 @@ export class ClientService {
     return this.http.get<UserInfo>(`${this.apiUrl}/${clientId}`);
   }
 
+  getBalance(): Observable<UserInfo> {
+    const clientId = this.authService.getUserId();
+    return this.http.get<UserInfo>(`${this.apiUrl}/balance/${clientId}`)
+  }
+
+  addFund(clientData: { value: number }): Observable<UserInfo> {
+    const clientId = this.authService.getUserId();
+    return this.http.post<UserInfo>(`${this.apiUrl}/addFunds/${clientId}`, clientData);
+  }
+  
+  getTotalAmountSpent(): Observable<UserInfo> {
+    const clientId = this.authService.getUserId();
+    console.log(clientId)
+    return this.http.get<UserInfo>(`${this.apiUrl}/totalamountspent/${clientId}`)
+  }
+
   updateUserInfo(user: any): Observable<any> {
     const clientId = this.authService.getUserId();
     return this.http.put(`${this.apiUrl}/${clientId}`, user).pipe(
