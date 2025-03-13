@@ -129,8 +129,8 @@ export class UserComponent implements OnInit {
       return;
     }
   
-    const clientId = this.userInfo.id; // ✅ Extract clientId
-    const saleId = sale.id; // ✅ Extract saleId instead of establishmentId
+    const clientId = this.userInfo.id;
+    const saleId = sale.id; 
   
     const review = {
       classification,
@@ -154,7 +154,6 @@ export class UserComponent implements OnInit {
     this.clientService.getClientReviews(2).subscribe((reviews) => {
       this.reviews = reviews;
       
-      // ✅ Fetch establishment details for each review
       this.reviews.forEach((review) => {
         this.establishmentService.getEstablishmentInfo(review.establishmentId).subscribe(
           (establishment) => {
