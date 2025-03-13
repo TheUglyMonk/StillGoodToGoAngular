@@ -16,6 +16,7 @@ export class ClientService {
 
   getFavoriteShops(): Observable<any[]> {
     const clientId = this.authService.getUserId();
+    console.log('getFavoriteShops', clientId);
     return this.http.get<any[]>(`${this.apiUrl}/favorites/${clientId}`);
   }
 
@@ -27,7 +28,12 @@ export class ClientService {
     );
   }
 
+  addReview(clientId: number, establishmentId: number, review: any) {
+    return this.http.post<Review>(`${environment.apiBaseUrl}/reviews/${clientId}/${establishmentId}`, review);
+  }
+
   getClientReviews(clientId: number): Observable<Review[]> {
+    console.log('getClientReviews', clientId);
     return this.http.get<Review[]>(`${environment.apiBaseUrl}/reviews/client/${clientId}`);
   }
 

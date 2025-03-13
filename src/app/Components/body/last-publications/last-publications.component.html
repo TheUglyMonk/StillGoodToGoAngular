@@ -24,7 +24,7 @@
         <div class="flex flex-col items-end">
           <select [(ngModel)]="selectedPaymentMethod[publication.id]" class="mb-2 px-2 py-1 border rounded">
             <option value="Balance">Saldo</option>
-            <option value="Store">Loja</option>
+            <option value="Store">No local</option>
           </select>
 
           <button (click)="buyPublication(publication.id, 1)" 

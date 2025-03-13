@@ -99,10 +99,56 @@ export class UserComponent implements OnInit {
   }
 
   getSales() {
-    this.saleService.getSales().subscribe((data) => {
-      this.sales = data;
+    
+    this.saleService.getSalesByClient(1).subscribe(
+      (data) => {
+        this.sales = data;
+      },
+      (error) => {
+        console.error("Error fetching sales:", error);
+      }
+    );
+  }
+
+  openReviewForm(sale: Sale) {
+    if (!this.userInfo?.id) {
+      alert("Usuário não encontrado.");
+      return;
+    }
+  
+    if (!sale.id) {
+      alert("Venda não encontrada.");
+      return;
+    }
+  
+    const reviewComment = prompt("Digite sua avaliação:");
+    const classification = Number(prompt("Dê uma classificação (1-5):"));
+  
+    if (!reviewComment || isNaN(classification) || classification < 1 || classification > 5) {
+      alert("Avaliação inválida!");
+      return;
+    }
+  
+    const clientId = this.userInfo.id; // ✅ Extract clientId
+    const saleId = sale.id; // ✅ Extract saleId instead of establishmentId
+  
+    const review = {
+      classification,
+      comment: reviewComment
+    };
+  
+    this.clientService.addReview(clientId, saleId, review).subscribe({
+      next: (newReview) => {
+        sale.review = newReview;
+        alert("Avaliação enviada com sucesso!");
+      },
+      error: (err) => {
+        console.error("Erro ao enviar avaliação:", err);
+        alert("Erro ao enviar avaliação.");
+      }
     });
   }
+
 
    getReviews() {
     this.clientService.getClientReviews(2).subscribe((reviews) => {

@@ -58,4 +58,9 @@ export class SaleService {
       })
     );
   }
+
+  getSalesByClient(clientId: number) {
+    console.log(clientId);
+    return this.http.get<Sale[]>(`${this.saleUrl}/client/${clientId}`);
+  }
 }
