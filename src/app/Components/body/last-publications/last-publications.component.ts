@@ -9,7 +9,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 @Component({
   selector: 'app-last-publications',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule], 
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './last-publications.component.html',
   styleUrl: './last-publications.component.css'
 })
@@ -26,10 +26,10 @@ export class LastPublicationsComponent implements OnInit {
   ];
 
   constructor(
-    private publicationsService: PublicationService, 
+    private publicationsService: PublicationService,
     private saleService: SaleService, // ✅ Inject SaleService
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.publicationsService.getLatestPublications().subscribe(
@@ -56,10 +56,25 @@ export class LastPublicationsComponent implements OnInit {
 
   buyPublication(publicationId: number, clientId: number): void {
     const paymentMethod = this.selectedPaymentMethod[publicationId] || 'Balance'; // Default to 'Balance'
-    
+
     this.saleService.buyPublication(publicationId, clientId, paymentMethod).subscribe({
-      next: () => alert('Compra realizada com sucesso! ✅'),
-      error: (err) => alert('Erro na compra: ' + err.error.message)
+      next: () => {
+        alert('Compra realizada com sucesso! ✅');
+
+        // Refresh publications after purchase
+        this.publicationsService.getLatestPublications().subscribe(
+          (data) => {
+            this.publications = data;
+          },
+          (error) => {
+            console.error('Error fetching publications:', error);
+          }
+        );
+      },
+      error: (err) => {
+        alert('Erro na compra: ' + err.error.message);
+        console.error('Compra falhou:', err);
+      }
     });
   }
 }
