@@ -26,7 +26,7 @@ export class PublicationsComponent implements OnInit {
   }
 
   fetchPublications(): void {
-    this.http.get<Publication[]>(`${environment.apiBaseUrl}/publications/establishment/2`)
+    this.http.get<Publication[]>(`${environment.apiBaseUrl}/publications/establishment/1`)
       .subscribe({
         next: (data) => {
           console.log('Publications received:', data);

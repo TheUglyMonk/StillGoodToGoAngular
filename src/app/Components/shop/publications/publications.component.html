@@ -18,7 +18,7 @@
             <p class="text-gray-600 text-sm">Preço: {{ pub.price }} Eur</p>
             <p class="text-gray-500 text-xs">Publicado em: {{ pub.postDate | date:'dd/MM/yyyy' }}</p>
             <p class="text-gray-500 text-xs">Acaba em: {{ pub.endDate | date:'dd/MM/yyyy' }}</p>
-            <p class="text-gray-500 text-xs">Status: {{pub.status == 0 ? "Available": pub.status == 1?"Sold":"Unavailable"}}</p>
+            <p class="text-gray-500 text-xs">Status: {{pub.status == 0 ? "Disponivel": pub.status == 1?"Vendido":"Indisponivel"}}</p>
             
         </li>
     </ul>

@@ -6,7 +6,7 @@ import { PublicationService } from '../../Services/publication.service';
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [NgIf,CommonModule],
+  imports: [NgIf, CommonModule],
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.css'],
 })
@@ -19,7 +19,7 @@ export class FavoritesComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private publicationService: PublicationService
-  ) {}
+  ) { }
 
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class FavoritesComponent implements OnInit {
     this.clientService.getFavoriteShops().subscribe(
       (shops) => {
         this.favoriteShops = shops;
-      
+
         this.loading = false;
       },
       (error) => {
@@ -52,13 +52,14 @@ export class FavoritesComponent implements OnInit {
 
   showPublications(establishmentId: number) {
     if (this.activeShopId === establishmentId) {
-      // If already active, toggle off
       this.activeShopId = null;
       this.publications = [];
     } else {
       this.activeShopId = establishmentId;
       this.publicationService.getPublicationsByEstablishmentId(establishmentId).subscribe({
-        next: (data) => this.publications = data,
+        next: (data) => {
+          this.publications = data.filter(pub => pub.status === 0);
+        },
         error: (error) => console.error('Erro ao buscar publicações:', error)
       });
     }
